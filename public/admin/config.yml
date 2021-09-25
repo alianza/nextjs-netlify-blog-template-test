@@ -37,6 +37,12 @@ collections:
               label: Keyword
               name: keyword
               widget: "string"
+          - label: "Number of Posts per page"
+            name: "posts_per_page"
+            widget: "number"
+          - label: "Number of Events per page"
+            name: "events_per_page"
+            widget: "number"
           - label: "Twitter account"
             name: "twitter_account"
             widget: "string"
@@ -156,11 +162,12 @@ collections:
           valueField: "tags.*.slug"
       - label: "Body"
         name: "body"
-        widget: "markdown"
 
   - name: "events"
     label: "Events"
     folder: "content/events"
+    extension: "mdx"
+    format: "frontmatter"
     create: true
     slug: "{{slug}}"
     identifier_field: slug
@@ -168,6 +175,7 @@ collections:
     fields:
       - { label: "Slug", name: "slug", widget: "string" }
       - { label: "Name", name: "name", widget: "string" }
+      - { label: "Title", name: "title", widget: "string" } # Required for display in CMS
       - { label: "Date", name: "date", widget: "datetime" }
       - { label: "Featured Image", name: "thumbnail", widget: "image" }
       - label: "Location"
@@ -180,4 +188,20 @@ collections:
         displayFields:
           - "locations.*.name"
         valueField: "locations.*.slug"
+      - label: Tags
+        label_singular: "Tag"
+        name: "tags"
+        widget: list
+        summary: "{{fields.tag}}"
+        field:
+          label: Tag
+          name: tag
+          widget: relation
+          collection: "meta"
+          file: "tags"
+          searchFields:
+            - "tags.*.name"
+          displayFields:
+            - "tags.*.name"
+          valueField: "tags.*.slug"
       - { label: "Body", name: "body", widget: "markdown" }

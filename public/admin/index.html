@@ -27,7 +27,21 @@
           );
         },
       });
+      var EventPreview = createClass({
+        render: function () {
+          var entry = this.props.entry;
+          var date = entry.getIn(["data", "date"]);
+          return h(
+                  "div",
+                  { className: "content" },
+                  h("h1", {}, entry.getIn(["data", "name"])),
+                  h("time", {}, entry.getIn(["data", "location"])),
+                  h("div", {}, this.props.widgetFor("body"))
+          );
+        },
+      });
       CMS.registerPreviewTemplate("posts", PostPreview);
+      CMS.registerPreviewTemplate("events", EventPreview);
     </script>
   </body>
 </html>

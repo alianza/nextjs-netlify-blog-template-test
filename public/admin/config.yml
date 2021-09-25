@@ -1,9 +1,11 @@
 backend:
   name: git-gateway
+  repo: alianza/nextjs-netlify-blog-template-test
   branch: master
 media_folder: public/images
 public_folder: /images
 publish_mode: editorial_workflow
+logo_url: https://pensive-mclean-91ddb5.netlify.app/images/logo.webp
 
 collections:
   - name: "config"
@@ -87,6 +89,22 @@ collections:
                 name: "name"
                 widget: "string"
                 hint: "Tag name for displaying on the site"
+      - name: "locations"
+        label: "Locations"
+        file: "meta/locations.yml"
+        description: "Location description"
+        fields:
+          - name: locations
+            label: Locations
+            label_singular: "Location"
+            widget: list
+            fields:
+              - { label: "Slug", name: "slug", widget: "string", hint: "The part of a URL identifies the location (lowercase!)" }
+              - { label: "Name", name: "name", widget: "string", hint: "Name of location" }
+              - { label: "Address", name: "address", widget: "string", hint: "Full address" }
+              - { label: "Location", name: "location", widget: "map", hint: "Location on map" }
+              - { label: "Featured Image", name: "thumbnail", widget: "image", choose_url: true }
+              - { label: "Description", name: "description", widget: "text", }
 
   - name: "posts"
     label: "Posts"
@@ -139,3 +157,27 @@ collections:
       - label: "Body"
         name: "body"
         widget: "markdown"
+
+  - name: "events"
+    label: "Events"
+    folder: "content/events"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: slug
+    summary: "{{title}}"
+    fields:
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Featured Image", name: "thumbnail", widget: "image" }
+      - label: "Location"
+        name: "location"
+        widget: "relation"
+        collection: "meta"
+        file: "locations"
+        searchFields:
+          - "locations.*.name"
+        displayFields:
+          - "locations.*.name"
+        valueField: "locations.*.slug"
+      - { label: "Body", name: "body", widget: "markdown" }

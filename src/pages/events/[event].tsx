@@ -5,8 +5,6 @@ import hydrate from "next-mdx-remote/hydrate";
 import matter from "gray-matter";
 import fs from "fs";
 import yaml from "js-yaml";
-import {parseISO} from 'date-fns';
-import PostLayout from "../../components/PostLayout";
 
 import InstagramEmbed from "react-instagram-embed";
 import YouTube from "react-youtube";
@@ -43,16 +41,17 @@ export default function Event({
 }: Props) {
   const content = hydrate(source, { components })
   return (
-    <PostLayout // Change!to EventLayout
-      title={title}
-      date={parseISO(dateString)}
-      slug={slug}
-      tags={tags}
-      author={location}
-      description={description}
-    >
-      {content}
-    </PostLayout>
+    // <PostLayout // Change!to EventLayout
+    //   title={title}
+    //   date={parseISO(dateString)}
+    //   slug={slug}
+    //   tags={tags}
+    //   author={location}
+    //   description={description}
+    // >
+    //   {content}
+    // </PostLayout>
+      <></>
   )
 }
 
@@ -78,7 +77,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       slug: data.slug,
       description: "",
       tags: data.tags,
-      author: data.author,
+      location: data.location,
       source: mdxSource
     },
   };

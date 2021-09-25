@@ -1,0 +1,8 @@
+locations:
+  - slug: boat
+    name: Boat
+    address: Levantkade 58, 1019BG Amsterdam
+    location: '{"type":"Point","coordinates":[4.9399441,52.3760674]}'
+    thumbnail: /images/img_2131-klein-1.jpg
+    description: Boat is a beautiful location with water all around. Great for
+      parties, weddings and more!

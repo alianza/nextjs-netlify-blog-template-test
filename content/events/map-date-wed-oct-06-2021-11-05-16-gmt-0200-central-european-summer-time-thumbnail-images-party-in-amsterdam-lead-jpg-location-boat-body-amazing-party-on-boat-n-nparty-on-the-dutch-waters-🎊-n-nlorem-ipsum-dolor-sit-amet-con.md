@@ -1,4 +1,5 @@
 ---
+slug: boat2021
 name: Boat party 2021!
 date: 2021-10-06T09:05:16.938Z
 thumbnail: /images/party-in-amsterdam-lead.jpg

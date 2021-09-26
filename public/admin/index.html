@@ -68,9 +68,9 @@
         fromBlock: function(match) {
           return { id: match[1] };
         },
-        toBlock: function(obj) { return `<iframe src="https://www.instagram.com/p/${obj.id}/embed/captioned/" width="100%" />`; },
+        toBlock: function(obj) { return `<iframe src="https://www.instagram.com/p/${obj.id}/embed/captioned/" width="100%"></iframe>`; },
         toPreview: function(obj) {
-          return (`<iframe src="https://www.instagram.com/p/${obj.id}/embed/captioned/" width="100%" />`);
+          return (`<iframe src="https://www.instagram.com/p/${obj.id}/embed/captioned/" width="100%"></iframe>`);
         }
       });
     </script>

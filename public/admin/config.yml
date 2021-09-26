@@ -66,17 +66,10 @@ collections:
             label_singular: "Author"
             widget: list
             fields:
-              - label: "Slug"
-                name: "slug"
-                widget: "string"
-                hint: "The part of a URL identifies the author"
-              - label: "Name"
-                name: "name"
-                widget: "string"
-                hint: "First and Last"
-              - label: "Introduction"
-                name: "introduction"
-                widget: "text"
+              - { label: "Slug", name: "slug", widget: "string", hint: "The part of a URL identifies the author" }
+              - { label: "Name", name: "name", widget: "string", hint: "First and Last" }
+              - { label: "Introduction", name: "introduction", widget: "text" }
+
       - name: "tags"
         label: "Tags"
         file: "meta/tags.yml"
@@ -87,14 +80,9 @@ collections:
             label_singular: "Tag"
             widget: list
             fields:
-              - label: "Slug"
-                name: "slug"
-                widget: "string"
-                hint: "The part of a URL identifies the tag"
-              - label: "Display Name"
-                name: "name"
-                widget: "string"
-                hint: "Tag name for displaying on the site"
+              - { label: "Slug", name: "slug", widget: "string", hint: "The part of a URL identifies the tag" }
+              - { label: "Display Name", name: "name", widget: "string", hint: "Tag name for displaying on the site" }
+
       - name: "locations"
         label: "Locations"
         file: "meta/locations.yml"
@@ -122,28 +110,19 @@ collections:
     identifier_field: slug
     summary: "{{title}}"
     fields:
-      - label: "Slug"
-        name: "slug"
-        widget: "string"
-      - label: "Title"
-        name: "title"
-        widget: "string"
-      - label: "Publish Date"
-        name: "date"
-        widget: "datetime"
-        format: "YYYY-MM-DD"
-        dateFormat: "YYYY-MM-DD"
-        timeFormat: false
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
       - label: Author
         name: "author"
         widget: relation
         collection: "meta"
         file: "authors"
-        searchFields:
+        search_fields:
           - "authors.*.name"
-        displayFields:
+        display_fields:
           - "authors.*.name"
-        valueField: "authors.*.slug"
+        value_field: "authors.*.slug"
       - label: Tags
         label_singular: "Tag"
         name: "tags"
@@ -155,13 +134,12 @@ collections:
           widget: relation
           collection: "meta"
           file: "tags"
-          searchFields:
+          search_fields:
             - "tags.*.name"
-          displayFields:
+          display_fields:
             - "tags.*.name"
-          valueField: "tags.*.slug"
-      - label: "Body"
-        name: "body"
+          value_field: "tags.*.slug"
+      - { label: "Body", name: "body", widget: "markdown" }
 
   - name: "events"
     label: "Events"
@@ -183,11 +161,11 @@ collections:
         widget: "relation"
         collection: "meta"
         file: "locations"
-        searchFields:
+        search_fields:
           - "locations.*.name"
-        displayFields:
+        display_fields:
           - "locations.*.name"
-        valueField: "locations.*.slug"
+        value_field: "locations.*.slug"
       - label: Tags
         label_singular: "Tag"
         name: "tags"
@@ -199,9 +177,9 @@ collections:
           widget: relation
           collection: "meta"
           file: "tags"
-          searchFields:
+          search_fields:
             - "tags.*.name"
-          displayFields:
+          display_fields:
             - "tags.*.name"
-          valueField: "tags.*.slug"
+          value_field: "tags.*.slug"
       - { label: "Body", name: "body", widget: "markdown" }

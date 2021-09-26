@@ -10,10 +10,9 @@
     <!-- Include the script that builds the page and powers Netlify CMS -->
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
     <script>
-      CMS.registerPreviewStyle(
-        "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap"
-      );
-      CMS.registerPreviewStyle("/styles/content.module.css");
+      CMS.registerPreviewStyle("../styles/content.module.css");
+      CMS.registerPreviewStyle("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap");
+
       var PostPreview = createClass({
         render: function () {
           var entry = this.props.entry;

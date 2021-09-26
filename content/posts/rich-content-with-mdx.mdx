@@ -25,14 +25,22 @@ MDX supports to import React component and embed it directly as markdown content
 
 ## YouTube with embed
 
-<div class="video-container"><iframe class="youtube-embed"
-      src="https://www.youtube.com/embed/8WEDJVhTiIg" frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media;
-      gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+<div class="video-container">
+    <iframe class="youtube-embed"
+            src="https://www.youtube.com/embed/8WEDJVhTiIg"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen>
+    </iframe>
+</div>
 
 ## Instagram with iframe and embed url
 
-<iframe src='https://www.instagram.com/p/BHisJLwAEeU/embed/captioned/' frameBorder='1' width="100%"></iframe>
+<iframe class='instagram-post'
+        src="https://www.instagram.com/p/${obj.id}/embed/captioned/"
+        frameBorder='1'
+        width="100%">
+</iframe>
 
 ## YouTube with react-youtube
 

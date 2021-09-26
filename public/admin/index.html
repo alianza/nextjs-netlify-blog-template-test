@@ -46,18 +46,29 @@
         id: "youtube",
         label: "Youtube video",
         fields: [{name: 'id', label: 'Youtube Video ID'}],
+        patter: /^<div class="video-container">\n.*<iframe class="youtube-embed".*embed\/(.*?)".*<\/iframe>\n<\/div>$/ms,
         fromBlock: function(match) {
           return { id: match[1] };
         },
-        toBlock: function(obj) { return `<div class="video-container"><iframe class="youtube-embed"
-          src="https://www.youtube.com/embed/${obj.id}" frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media;
-          gyroscope; picture-in-picture" allowfullscreen></iframe></div>`; },
+        toBlock: function(obj) { return `
+<div class="video-container">
+    <iframe class="youtube-embed"
+            src="https://www.youtube.com/embed/${obj.id}"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen>
+    </iframe>
+</div>`; },
         toPreview: function(obj) {
-          return (`<div class="video-container"><iframe class="youtube-embed"
-          src="https://www.youtube.com/embed/${obj.id}" frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media;
-          gyroscope; picture-in-picture" allowfullscreen></iframe></div>`);
+          return (`
+<div class="video-container">
+    <iframe class="youtube-embed"
+            src="https://www.youtube.com/embed/${obj.id}"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen>
+    </iframe>
+</div>`);
         }
       });
 
@@ -65,12 +76,24 @@
         id: "instagram",
         label: "Instagram post",
         fields: [{name: 'id', label: 'Instagram Post ID'}],
+        pattern: /^<iframe class='instagram-post'.*p\/(.*?)\/.*frameBorder='1'>\n<\/iframe>$/ms,
         fromBlock: function(match) {
           return { id: match[1] };
         },
-        toBlock: function(obj) { return `<iframe src="https://www.instagram.com/p/${obj.id}/embed/captioned/" width="100%"></iframe>`; },
+        toBlock: function(obj) { return `
+<iframe class='instagram-post'
+        src="https://www.instagram.com/p/${obj.id}/embed/captioned/"
+        width="100%"
+        frameBorder='1'>
+</iframe>`; },
         toPreview: function(obj) {
-          return (`<iframe src="https://www.instagram.com/p/${obj.id}/embed/captioned/" width="100%"></iframe>`);
+          return (`
+<iframe class='instagram-post'
+        src="https://www.instagram.com/p/${obj.id}/embed/captioned/"
+        width="100%"
+        frameBorder='1'>
+</iframe>
+`);
         }
       });
     </script>

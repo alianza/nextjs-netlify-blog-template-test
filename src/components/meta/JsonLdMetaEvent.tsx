@@ -1,4 +1,4 @@
-import { BlogPosting } from "schema-dts";
+import { Event } from "schema-dts";
 import { jsonLdScriptProps } from "react-schemaorg";
 import config from "../../lib/config";
 import { formatISO } from "date-fns";
@@ -9,31 +9,30 @@ type Props = {
   title: string;
   keywords?: string[];
   date: Date;
-  author?: string;
-  image?: string;
+  location?: string;
+  thumbnail?: string;
   description?: string;
 };
-export default function JsonLdMeta({
+export default function JsonLdMetaEvent({
   url,
   title,
   keywords,
   date,
-  author,
-  image,
+  location,
+  thumbnail,
   description,
 }: Props) {
   return (
     <Head>
       <script
-        {...jsonLdScriptProps<BlogPosting>({
+        {...jsonLdScriptProps<Event>({
           "@context": "https://schema.org",
-          "@type": "BlogPosting",
+          "@type": "Event",
           mainEntityOfPage: config.base_url + url,
-          headline: title,
-          keywords: keywords ? undefined : keywords.join(","),
-          datePublished: formatISO(date),
-          author: author,
-          image: image,
+          about: title,
+          startDate: formatISO(date),
+          location: location,
+          image: thumbnail,
           description: description,
         })}
       />

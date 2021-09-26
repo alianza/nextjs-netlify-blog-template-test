@@ -1,13 +1,13 @@
-import {GetStaticPaths, GetStaticProps} from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import Layout from "../../../components/Layout";
 import BasicMeta from "../../../components/meta/BasicMeta";
 import OpenGraphMeta from "../../../components/meta/OpenGraphMeta";
 import TwitterCardMeta from "../../../components/meta/TwitterCardMeta";
 import config from "../../../lib/config";
-import {countPosts} from "../../../lib/posts";
-import {listTags, TagContent} from "../../../lib/tags";
-import EventList from "../../../components/EventList";
-import {countEvents, EventContent, listEventContent} from "../../../lib/events";
+import { countPosts } from "../../../lib/posts";
+import { listTags, TagContent } from "../../../lib/tags";
+import EventList from "../../../components/event/EventList";
+import { countEvents, EventContent, listEventContent } from "../../../lib/events";
 
 type Props = {
   events: EventContent[];

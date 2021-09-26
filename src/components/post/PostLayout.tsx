@@ -1,17 +1,17 @@
 import React from "react";
-import styles from "../../public/styles/content.module.css";
-import Author from "./Author";
-import Copyright from "./Copyright";
-import Date from "./Date";
-import Layout from "./Layout";
-import BasicMeta from "./meta/BasicMeta";
-import JsonLdMeta from "./meta/JsonLdMeta";
-import OpenGraphMeta from "./meta/OpenGraphMeta";
-import TwitterCardMeta from "./meta/TwitterCardMeta";
-import { SocialList } from "./SocialList";
-import TagButton from "./TagButton";
-import { getAuthor } from "../lib/authors";
-import { getTag } from "../lib/tags";
+import styles from "../../../public/styles/content.module.css";
+import Author from "../Author";
+import Copyright from "../Copyright";
+import Date from "../Date";
+import Layout from "../Layout";
+import BasicMeta from "../meta/BasicMeta";
+import JsonLdMetaPost from "../meta/JsonLdMetaPost";
+import OpenGraphMeta from "../meta/OpenGraphMeta";
+import TwitterCardMeta from "../meta/TwitterCardMeta";
+import { SocialList } from "../SocialList";
+import TagButton from "../TagButton";
+import { getAuthor } from "../../lib/authors";
+import { getTag } from "../../lib/tags";
 
 type Props = {
   title: string;
@@ -51,7 +51,7 @@ export default function PostLayout({
         title={title}
         description={description}
       />
-      <JsonLdMeta
+      <JsonLdMetaPost
         url={`/posts/${slug}`}
         title={title}
         keywords={keywords}
@@ -76,7 +76,7 @@ export default function PostLayout({
           <ul className={"tag-list"}>
             {tags.map((it, i) => (
               <li key={i}>
-                <TagButton tag={getTag(it)} />
+                <TagButton tag={getTag(it)} type={'posts'} />
               </li>
             ))}
           </ul>
@@ -216,10 +216,7 @@ export default function PostLayout({
             }
 
             .language-html .token.tag .token.attr-value,
-            .language-html
-              .token.tag
-              .token.attr-value
-              .token.punctuation:not(:first-child) {
+            .language-html .token.tag .token.attr-value .token.punctuation:not(:first-child) {
               color: #032f62;
             }
 

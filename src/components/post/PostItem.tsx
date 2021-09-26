@@ -1,5 +1,5 @@
-import { PostContent } from "../lib/posts";
-import Date from "./Date";
+import { PostContent } from "../../lib/posts";
+import Date from "../Date";
 import Link from "next/link";
 import { parseISO } from "date-fns";
 

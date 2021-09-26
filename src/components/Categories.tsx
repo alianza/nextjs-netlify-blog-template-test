@@ -1,16 +1,17 @@
 import TagLink from "./TagLink";
 import React from "react";
-import {TagContent} from "../lib/tags";
+import { TagContent } from "../lib/tags";
 
 type Props = {
     tags: TagContent[];
+    type: 'posts' | 'events';
 };
-export default function Categories({tags}: Props) {
+export default function Categories({ tags, type }: Props) {
     return (
         <ul className={"categories"}>
             {tags.map((it, i) => (
                 <li key={i}>
-                    <TagLink tag={it}/>
+                    <TagLink tag={it} type={type}/>
                 </li>
             ))}
             <style jsx>

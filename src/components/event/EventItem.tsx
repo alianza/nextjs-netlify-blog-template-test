@@ -1,13 +1,12 @@
-import Date from "./Date";
+import Date from "../Date";
 import Link from "next/link";
-import {parseISO} from "date-fns";
-import {EventContent} from "../lib/events";
+import { parseISO } from "date-fns";
+import { EventContent } from "../../lib/events";
 
 type Props = {
   event: EventContent;
 };
 export default function EventItem({ event }: Props) {
-    console.log(event);
     return (
     <Link href={"/events/" + event.slug}>
       <a>

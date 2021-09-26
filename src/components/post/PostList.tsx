@@ -1,26 +1,26 @@
 import React from "react";
-import Pagination from "./Pagination";
-import {TagContent} from "../lib/tags";
-import {EventContent} from "../lib/events";
-import EventItem from "./EventItem";
-import Categories from "./Categories";
+import { PostContent } from "../../lib/posts";
+import PostItem from "./PostItem";
+import Pagination from "../Pagination";
+import { TagContent } from "../../lib/tags";
+import Categories from "../Categories";
 
 type Props = {
-  events: EventContent[];
+  posts: PostContent[];
   tags: TagContent[];
   pagination: {
     current: number;
     pages: number;
   };
 };
-export default function EventList({ events, tags, pagination }: Props) {
+export default function PostList({ posts, tags, pagination }: Props) {
   return (
     <div className={"container"}>
-      <div className={"events"}>
-        <ul className={"event-list"}>
-          {events.map((it, i) => (
+      <div className={"posts"}>
+        <ul className={"post-list"}>
+          {posts.map((it, i) => (
             <li key={i}>
-              <EventItem event={it} />
+              <PostItem post={it} />
             </li>
           ))}
         </ul>
@@ -28,12 +28,12 @@ export default function EventList({ events, tags, pagination }: Props) {
           current={pagination.current}
           pages={pagination.pages}
           link={{
-            href: (page) => (page === 1 ? "/events" : "/events/page/[page]"),
-            as: (page) => (page === 1 ? null : "/events/page/" + page),
+            href: (page) => (page === 1 ? "/posts" : "/posts/page/[page]"),
+            as: (page) => (page === 1 ? null : "/posts/page/" + page),
           }}
         />
       </div>
-      <Categories tags={tags}/>
+        <Categories tags={tags} type={'posts'}/>
       <style jsx>{`
         .container {
           display: flex;
@@ -49,15 +49,15 @@ export default function EventList({ events, tags, pagination }: Props) {
         li {
           list-style: none;
         }
-        .events {
+        .posts {
           display: flex;
           flex-direction: column;
           flex: 1 1 auto;
         }
-        .events li {
+        .posts li {
           margin-bottom: 1.5rem;
         }
-        .event-list {
+        .post-list {
           flex: 1 0 auto;
         }
       `}</style>

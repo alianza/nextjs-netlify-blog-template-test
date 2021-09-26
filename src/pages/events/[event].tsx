@@ -1,15 +1,17 @@
-import {GetStaticPaths, GetStaticProps} from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import renderToString from "next-mdx-remote/render-to-string";
-import {MdxRemote} from "next-mdx-remote/types";
+import { MdxRemote } from "next-mdx-remote/types";
 import hydrate from "next-mdx-remote/hydrate";
 import matter from "gray-matter";
 import fs from "fs";
 import yaml from "js-yaml";
+import { parseISO } from "date-fns";
 
 import InstagramEmbed from "react-instagram-embed";
 import YouTube from "react-youtube";
-import {TwitterTweetEmbed} from "react-twitter-embed";
-import {fetchEventContent} from "../../lib/events";
+import { TwitterTweetEmbed } from "react-twitter-embed";
+import { fetchEventContent } from "../../lib/events";
+import EventLayout from "../../components/event/EventLayout";
 
 export type Props = {
   title: string;
@@ -32,26 +34,29 @@ const slugToEventContent = (eventContents => {
 
 export default function Event({
   title,
+  name,
   dateString,
   slug,
   tags,
   location,
+  thumbnail,
   description = "",
   source,
 }: Props) {
   const content = hydrate(source, { components })
   return (
-    // <PostLayout // Change!to EventLayout
-    //   title={title}
-    //   date={parseISO(dateString)}
-    //   slug={slug}
-    //   tags={tags}
-    //   author={location}
-    //   description={description}
-    // >
-    //   {content}
-    // </PostLayout>
-      <></>
+    <EventLayout
+      title={title}
+      name={name}
+      date={parseISO(dateString)}
+      slug={slug}
+      tags={tags}
+      thumbnail={thumbnail}
+      location={location}
+      description={description}
+    >
+      {content}
+    </EventLayout>
   )
 }
 

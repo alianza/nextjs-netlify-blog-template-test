@@ -57,14 +57,14 @@
       });
 
       const getInstagramFragment = (postId) => {
-        return `<iframe class='instagram-post' src="https://www.instagram.com/p/${postId}/embed/captioned/" width="100%" frameBorder='1'> </iframe>`;
+        return `<iframe class='instagram-post' src="https://www.instagram.com/p/${postId}/embed/captioned/" width="100%" frameBorder='1'><InstagramEmbed/> </iframe>`;
       };
 
       CMS.registerEditorComponent({
         id: "instagram",
         label: "Instagram post",
         fields: [{name: 'id', label: 'Instagram Post ID'}],
-        pattern: /^<iframe class='instagram-post'.*p\/(.*?)\/.*frameBorder='1'> <\/iframe>$/m,
+        pattern: /^<iframe class='instagram-post'.*p\/(.*?)\/.*<InstagramEmbed\/> <\/iframe>$/m,
         fromBlock: function(match) { return { id: match[1] }; },
         toBlock: function(obj) { return getInstagramFragment(obj.id); },
         toPreview: function(obj) { return getInstagramFragment(obj.id); }

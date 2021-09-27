@@ -13,28 +13,28 @@
       CMS.registerPreviewStyle("../styles/content.module.css");
       CMS.registerPreviewStyle("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap");
 
-      var PostPreview = createClass({
+      const PostPreview = createClass({
         render: function () {
-          var entry = this.props.entry;
-          var date = entry.getIn(["data", "date"]);
+          const entry = this.props.entry;
+          const date = entry.getIn(["data", "date"]);
           return h(
-            "div",
-            { className: "content" },
-            h("h1", {}, entry.getIn(["data", "title"])),
-            h("time", {}, entry.getIn(["data", "date"])),
-            h("div", {}, this.props.widgetFor("body"))
+                  "div",
+                  {className: "content"},
+                  h("h1", {}, entry.getIn(["data", "title"])),
+                  h("time", {}, entry.getIn(["data", "date"])),
+                  h("div", {}, this.props.widgetFor("body"))
           );
         },
       });
-      var EventPreview = createClass({
+      const EventPreview = createClass({
         render: function () {
-          var entry = this.props.entry;
-          var date = entry.getIn(["data", "date"]);
+          const entry = this.props.entry;
+          const date = entry.getIn(["data", "date"]);
           return h(
                   "div",
-                  { className: "content" },
+                  {className: "content"},
                   h("h1", {}, entry.getIn(["data", "name"])),
-                  h("time", {}, entry.getIn(["data", "location"])),
+                  h("p", {}, entry.getIn(["data", "location"])),
                   h("div", {}, this.props.widgetFor("body"))
           );
         },
@@ -42,60 +42,50 @@
       CMS.registerPreviewTemplate("posts", PostPreview);
       CMS.registerPreviewTemplate("events", EventPreview);
 
+      const getYoutubeFragment = (videoId) => {
+        return `<div class="video-container"><iframe class="youtube-embed" src="https://www.youtube.com/embed/${videoId}" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen> </iframe></div>`;
+      };
+
       CMS.registerEditorComponent({
         id: "youtube",
         label: "Youtube video",
         fields: [{name: 'id', label: 'Youtube Video ID'}],
-        patter: /^<div class="video-container">\n.*<iframe class="youtube-embed".*embed\/(.*?)".*<\/iframe>\n<\/div>$/ms,
-        fromBlock: function(match) {
-          return { id: match[1] };
-        },
-        toBlock: function(obj) { return `
-<div class="video-container">
-    <iframe class="youtube-embed"
-            src="https://www.youtube.com/embed/${obj.id}"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen>
-    </iframe>
-</div>`; },
-        toPreview: function(obj) {
-          return (`
-<div class="video-container">
-    <iframe class="youtube-embed"
-            src="https://www.youtube.com/embed/${obj.id}"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen>
-    </iframe>
-</div>`);
-        }
+        pattern: /^<div class="video-container"><iframe class="youtube-embed".*embed\/(.*?)".*<\/iframe><\/div>$/m,
+        fromBlock: function(match) { return { id: match[1] }; },
+        toBlock: function(obj) { return getYoutubeFragment(obj.id); },
+        toPreview: function(obj) { return getYoutubeFragment(obj.id); }
       });
+
+      const getInstagramFragment = (postId) => {
+        return `<iframe class='instagram-post' src="https://www.instagram.com/p/${postId}/embed/captioned/" width="100%" frameBorder='1'> </iframe>`;
+      };
 
       CMS.registerEditorComponent({
         id: "instagram",
         label: "Instagram post",
         fields: [{name: 'id', label: 'Instagram Post ID'}],
-        pattern: /^<iframe class='instagram-post'.*p\/(.*?)\/.*frameBorder='1'>\n<\/iframe>$/ms,
-        fromBlock: function(match) {
-          return { id: match[1] };
-        },
-        toBlock: function(obj) { return `
-<iframe class='instagram-post'
-        src="https://www.instagram.com/p/${obj.id}/embed/captioned/"
-        width="100%"
-        frameBorder='1'>
-</iframe>`; },
-        toPreview: function(obj) {
-          return (`
-<iframe class='instagram-post'
-        src="https://www.instagram.com/p/${obj.id}/embed/captioned/"
-        width="100%"
-        frameBorder='1'>
-</iframe>
-`);
-        }
+        pattern: /^<iframe class='instagram-post'.*p\/(.*?)\/.*frameBorder='1'> <\/iframe>$/m,
+        fromBlock: function(match) { return { id: match[1] }; },
+        toBlock: function(obj) { return getInstagramFragment(obj.id); },
+        toPreview: function(obj) { return getInstagramFragment(obj.id); }
       });
+
+      const getTwitterFragment = (tweetId, theme) => {
+        return `<iframe class='tweet' allowTransparency="true" allowFullScreen="true" width="100%" height="553px" src="https://platform.twitter.com/embed/Tweet.html?dnt=false&embedId=twitter-widget-2&frame=false&hideCard=false&hideThread=false&id=${tweetId}&theme=${theme}" frameBorder='0'> </iframe>`;
+      };
+
+        CMS.registerEditorComponent({
+          id: "twitter",
+          label: "Tweet",
+          fields: [
+            {name: 'id', label: 'Tweet ID'},
+            {name: 'theme', label: 'Display theme', widget: 'select', options: ["dark", "light"], default: ["light"]}
+          ],
+          pattern: /^<iframe class='tweet'.*id=(.*?)&theme=(.*?)".*frameBorder='0'> <\/iframe>$/m,
+          fromBlock: function(match) { return { id: match[1], theme: match[2] }; },
+          toBlock: function(obj) { return getTwitterFragment(obj.id, obj.theme); },
+          toPreview: function(obj) { return getTwitterFragment(obj.id, obj.theme); }
+        });
     </script>
   </body>
 </html>

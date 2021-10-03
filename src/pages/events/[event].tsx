@@ -19,7 +19,6 @@ export type Props = {
   dateString: string;
   thumbnail: string;
   slug: string;
-  tags: string[];
   location: string;
   description?: string;
   source: MdxRemote.Source;
@@ -37,7 +36,6 @@ export default function Event({
   name,
   dateString,
   slug,
-  tags,
   location,
   thumbnail,
   description = "",
@@ -50,7 +48,6 @@ export default function Event({
       name={name}
       date={parseISO(dateString)}
       slug={slug}
-      tags={tags}
       thumbnail={thumbnail}
       location={location}
       description={description}
@@ -81,7 +78,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       dateString: data.date,
       slug: data.slug,
       description: "",
-      tags: data.tags,
       location: data.location,
       source: mdxSource
     },

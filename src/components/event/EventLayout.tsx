@@ -7,8 +7,6 @@ import BasicMeta from "../meta/BasicMeta";
 import OpenGraphMeta from "../meta/OpenGraphMeta";
 import TwitterCardMeta from "../meta/TwitterCardMeta";
 import { SocialList } from "../SocialList";
-import TagButton from "../TagButton";
-import { getTag } from "../../lib/tags";
 import { getLocation } from "../../lib/locations";
 import JsonLdMetaEvent from "../meta/JsonLdMetaEvent";
 import Location from "../Location";
@@ -18,7 +16,6 @@ type Props = {
   name: string;
   slug: string;
   date: Date;
-  tags: string[];
   thumbnail: string;
   location: string;
   description?: string;
@@ -29,18 +26,16 @@ export default function EventLayout({
   date,
   slug,
   location,
-  tags,
   description = "",
   children,
 }: Props) {
-  const keywords = tags.map(it => getTag(it).name);
   const locationName = getLocation(location).name;
   return (
     <Layout>
       <BasicMeta
         url={`/events/${slug}`}
         title={title}
-        keywords={keywords}
+        keywords={[location]}
         description={description}
       />
       <TwitterCardMeta
@@ -56,7 +51,7 @@ export default function EventLayout({
       <JsonLdMetaEvent
         url={`/events/${slug}`}
         title={title}
-        keywords={keywords}
+        keywords={[location]}
         date={date}
         location={locationName}
         description={description}
@@ -75,13 +70,6 @@ export default function EventLayout({
             </div>
           </header>
           <div className={styles.content}>{children}</div>
-          <ul className={"tag-list"}>
-            {tags.map((it, i) => (
-              <li key={i}>
-                <TagButton tag={getTag(it)} type={'events'} />
-              </li>
-            ))}
-          </ul>
         </article>
         <footer>
           <div className={"social-list"}>

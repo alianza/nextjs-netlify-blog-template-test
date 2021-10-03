@@ -1,19 +1,19 @@
 import React from "react";
 import Pagination from "../Pagination";
-import { TagContent } from "../../lib/tags";
 import { EventContent } from "../../lib/events";
 import EventItem from "./EventItem";
 import Categories from "../Categories";
+import { LocationContent } from "../../lib/locations";
 
 type Props = {
   events: EventContent[];
-  tags: TagContent[];
+  locations: LocationContent[];
   pagination: {
     current: number;
     pages: number;
   };
 };
-export default function EventList({ events, tags, pagination }: Props) {
+export default function EventList({ events, locations, pagination }: Props) {
     return (
     <div className={"container"}>
       <div className={"events"}>
@@ -33,7 +33,7 @@ export default function EventList({ events, tags, pagination }: Props) {
           }}
         />
       </div>
-      <Categories tags={tags} type={'events'}/>
+      <Categories locations={locations} type={'events'}/>
       <style jsx>{`
         .container {
           display: flex;

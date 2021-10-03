@@ -1,4 +1,5 @@
 import { LocationContent } from "../lib/locations";
+import LocationLink from "./LocationLink";
 
 type Props = {
   location: LocationContent;
@@ -6,7 +7,7 @@ type Props = {
 export default function Location({ location }: Props) {
     return (
     <>
-      <span>At: {location.name}</span>
+    <span>At: <LocationLink location={location} type={'events'}/></span>
       <style jsx>
         {`
           span {

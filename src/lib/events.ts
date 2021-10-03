@@ -12,7 +12,6 @@ export type EventContent = {
   readonly date: string;
   readonly thumbnail: string;
   readonly location: string;
-  readonly tags?: string[];
   readonly fullPath: string;
 };
 
@@ -43,7 +42,6 @@ export function fetchEventContent(): EventContent[] {
         name: string;
         thumbnail: string;
         location: string;
-        tags: string[];
         slug: string;
         fullPath: string,
       };
@@ -71,18 +69,30 @@ export function fetchEventContent(): EventContent[] {
   return postCache;
 }
 
-export function countEvents(tag?: string): number {
-  return fetchEventContent().filter(
-    (it) => !tag || (it.tags && it.tags.includes(tag))
-  ).length;
+export function countEvents(): number {
+    return fetchEventContent().length;
+}
+
+export function countEventsByLocation(location?: string): number {
+    return fetchEventContent().filter(
+        (it) => !location || (it.location && it.location.includes(location))
+    ).length;
 }
 
 export function listEventContent(
   page: number,
   limit: number,
-  tag?: string
 ): EventContent[] {
   return fetchEventContent()
-    .filter((it) => !tag || (it.tags && it.tags.includes(tag)))
     .slice((page - 1) * limit, page * limit);
+}
+
+export function listEventContentByLocation(
+    page: number,
+    limit: number,
+    location: string
+): EventContent[] {
+    return fetchEventContent()
+        .filter((it) => !location || (it.location && it.location.includes(location)))
+        .slice((page - 1) * limit, page * limit);
 }

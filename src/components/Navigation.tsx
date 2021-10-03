@@ -1,7 +1,7 @@
 import Link from "next/link";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import Burger from "./Burger";
-import {useState} from "react";
+import { useState } from "react";
 
 export default function Navigation() {
   const router = useRouter();
@@ -13,7 +13,7 @@ export default function Navigation() {
         <ul>
           <li>
             <Link href="/">
-              <a className={router.pathname === "/" ? "active" : null}>about</a>
+              <a className={router.pathname === "/" ? "active" : null}>Home</a>
             </Link>
           </li>
           <li>
@@ -23,7 +23,7 @@ export default function Navigation() {
           </li>
           <li>
             <Link href="/posts">
-              <a className={ router.pathname.startsWith("/posts") ? "active" : null }>blog</a>
+              <a className={ router.pathname.startsWith("/posts") ? "active" : null }>Blog</a>
             </Link>
           </li>
         </ul>

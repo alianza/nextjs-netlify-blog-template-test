@@ -5,20 +5,20 @@ import OpenGraphMeta from "../../../components/meta/OpenGraphMeta";
 import TwitterCardMeta from "../../../components/meta/TwitterCardMeta";
 import config from "../../../lib/config";
 import { countPosts } from "../../../lib/posts";
-import { listTags, TagContent } from "../../../lib/tags";
 import EventList from "../../../components/event/EventList";
 import { countEvents, EventContent, listEventContent } from "../../../lib/events";
+import { listLocations, LocationContent } from "../../../lib/locations";
 
 type Props = {
   events: EventContent[];
-  tags: TagContent[];
+  locations: LocationContent[];
   page: number;
   pagination: {
     current: number;
     pages: number;
   };
 };
-export default function Page({ events, tags, pagination, page }: Props) {
+export default function Page({ events, locations, pagination, page }: Props) {
   const url = `/events/page/${page}`;
   const title = "All events";
   return (
@@ -26,7 +26,7 @@ export default function Page({ events, tags, pagination, page }: Props) {
       <BasicMeta url={url} title={title} />
       <OpenGraphMeta url={url} title={title} />
       <TwitterCardMeta url={url} title={title} />
-      <EventList events={events} tags={tags} pagination={pagination} />
+      <EventList events={events} locations={locations} pagination={pagination} />
     </Layout>
   );
 }
@@ -34,7 +34,7 @@ export default function Page({ events, tags, pagination, page }: Props) {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const page = parseInt(params.page as string);
   const events = listEventContent(page, config.events_per_page);
-  const tags = listTags();
+  const locations = listLocations();
   const pagination = {
     current: page,
     pages: Math.ceil(countPosts() / config.events_per_page),
@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       page,
       events,
-      tags,
+      locations,
       pagination,
     },
   };

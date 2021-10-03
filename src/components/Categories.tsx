@@ -1,17 +1,27 @@
 import TagLink from "./TagLink";
+import LocationLink from "./LocationLink";
 import React from "react";
 import { TagContent } from "../lib/tags";
+import { LocationContent } from "../lib/locations";
 
 type Props = {
-    tags: TagContent[];
+    tags?: TagContent[];
+    locations?: LocationContent[];
     type: 'posts' | 'events';
 };
-export default function Categories({ tags, type }: Props) {
+export default function Categories({ tags, locations, type }: Props) {
     return (
         <ul className={"categories"}>
-            {tags.map((it, i) => (
+            {tags && <li><h3>Tags:</h3></li>}
+            {tags?.map((tag, i) => (
                 <li key={i}>
-                    <TagLink tag={it} type={type}/>
+                    <TagLink tag={tag} type={type}/>
+                </li>
+            ))}
+            {locations && <li><h3>Locations:</h3></li>}
+            {locations?.map((location, i) => (
+                <li key={i}>
+                    <LocationLink location={location} type={type}/>
                 </li>
             ))}
             <style jsx>
